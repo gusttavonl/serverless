@@ -21,5 +21,5 @@ npm install
 # How Create Project Deploy
 
 ```
-sls deploy
+sls deploy -v
 ```
