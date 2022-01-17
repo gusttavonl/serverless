@@ -13,12 +13,12 @@ provider:
   region: sa-east-1
 
 functions:
-  hello:
-    handler: src/handlers/hello.handler
+  createProduct:
+    handler: src/handlers/createProduct.handler
     events:
       - http:
-          method: GET
-          path: /hello
+          method: POST
+          path: /product
 
 custom:
   bundle:
