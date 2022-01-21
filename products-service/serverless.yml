@@ -12,11 +12,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: sa-east-1
   iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:PutItem
-      Resource:
-        - arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:table/ProductsTable
+    - ${file(iam/ProductsTableIAM.yml):ProductsTableIAM}
 
 functions:
   createProduct:
@@ -28,17 +24,7 @@ functions:
 
 resources:
   Resources:
-    AuctionsTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ProductsTable
-        BillingMode: PAY_PER_REQUEST
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
+    ProductsTable: ${file(resources/ProductsTable.yml):ProductsTable}
 
 custom:
   bundle:
