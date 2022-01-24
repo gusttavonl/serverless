@@ -16,7 +16,7 @@ async function createProduct(event, context) {
   }
 
   dynamoDb.put({
-    TableName: 'ProductsTable',
+    TableName: proccess.env.PRODUCTS_TABLE_NAME,
     Item: product
   }).promise()
 
