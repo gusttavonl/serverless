@@ -11,6 +11,8 @@ provider:
   memorySize: 256
   stage: ${opt:stage, 'dev'}
   region: sa-east-1
+  environment:
+    PRODUCTS_TABLE_NAME: ${self:custom.ProductsTable.name}
   iamRoleStatements:
     - ${file(iam/ProductsTableIAM.yml):ProductsTableIAM}
 
@@ -27,5 +29,8 @@ resources:
     ProductsTable: ${file(resources/ProductsTable.yml):ProductsTable}
 
 custom:
+  ProductsTable:
+    name: !Ref ProductsTable
+    arn: !GetAtt ProductsTable.Arn
   bundle:
     linting: false
