@@ -2,5 +2,6 @@ ProductsTableIAM:
   Effect: Allow
   Action:
     - dynamodb:PutItem
+    - dynamodb:Scan
   Resource:
     - ${self:custom.ProductsTable.arn}
