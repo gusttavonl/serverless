@@ -24,6 +24,13 @@ functions:
           method: POST
           path: /product
 
+  getProducts:
+    handler: src/handlers/getProducts.handler
+    events:
+      - http:
+          method: GET
+          path: /products
+
 resources:
   Resources:
     ProductsTable: ${file(resources/ProductsTable.yml):ProductsTable}
