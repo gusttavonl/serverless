@@ -31,6 +31,13 @@ functions:
           method: GET
           path: /products
 
+  getProduct:
+    handler: src/handlers/getProduct.handler
+    events:
+      - http:
+          method: GET
+          path: /product/{id}
+
 resources:
   Resources:
     ProductsTable: ${file(resources/ProductsTable.yml):ProductsTable}
