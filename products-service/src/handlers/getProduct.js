@@ -1,8 +1,5 @@
 import AWS from 'aws-sdk'
-import middy from '@middy/core'
-import httpJsonBodyParser from '@middy/http-json-body-parser'
-import httpEventNormalizer from '@middy/http-event-normalizer'
-import httpErrorHendler from '@middy/http-error-handler'
+import commonMiddleware from '../../lib/commonMiddleware'
 import createError from 'http-errors'
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient()
@@ -32,9 +29,6 @@ async function getProduct(event, context) {
   };
 }
 
-export const handler = middy(getProduct)
-  .use(httpJsonBodyParser())
-  .use(httpEventNormalizer())
-  .use(httpErrorHendler())
+export const handler = commonMiddleware(getProduct)
 
 
