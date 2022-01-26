@@ -3,5 +3,6 @@ ProductsTableIAM:
   Action:
     - dynamodb:PutItem
     - dynamodb:Scan
+    - dynamodb:GetItem
   Resource:
     - ${self:custom.ProductsTable.arn}
