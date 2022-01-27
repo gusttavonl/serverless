@@ -14,7 +14,10 @@ async function createProduct(event, context) {
     title,
     qtd,
     status,
-    createdAt: now.toISOString()
+    createdAt: now.toISOString(),
+    bid: {
+      amount: 0
+    }
   }
 
   try {
