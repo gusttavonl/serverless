@@ -1,6 +1,7 @@
 import AWS from 'aws-sdk'
 import commonMiddleware from '../../lib/commonMiddleware'
 import createError from 'http-errors'
+import { getProductById } from './getProduct'
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient()
 
@@ -9,6 +10,12 @@ async function placeBid(event, context) {
   
   const { id } = event.pathParameters
   const { amount } = event.body
+
+  const product = await getProductById(id)
+
+  if(amount === product.bid.amount) {
+    throw new createError.Forbidden(`Your bid must be different than ${product.bid.amount}!`)
+  }
 
   const params = {
     TableName: proccess.env.PRODUCTS_TABLE_NAME,
