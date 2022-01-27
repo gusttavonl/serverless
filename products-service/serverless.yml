@@ -38,6 +38,12 @@ functions:
           method: GET
           path: /product/{id}
 
+  placeBid:
+    handler: src/handlers/placeBid.handler
+    events:
+      - http:
+          method: PATCH
+          path: /product/{id}/bid
 resources:
   Resources:
     ProductsTable: ${file(resources/ProductsTable.yml):ProductsTable}
