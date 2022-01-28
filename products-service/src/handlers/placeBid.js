@@ -21,7 +21,7 @@ async function placeBid(event, context) {
     TableName: process.env.PRODUCTS_TABLE_NAME,
     Key: { id },
     UpdateExpression: 'set bid.amount = :amount',
-    ExpressionAttributesValues: {
+    ExpressionAttributeValues: {
       ':amount': amount
     },
     ReturnValues: 'ALL_NEW'
