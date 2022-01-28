@@ -10,7 +10,7 @@ async function createProduct(event, context) {
   const now = new Date()
 
   const product = {
-    id: uuid,
+    id: uuid(),
     title,
     qtd,
     status,
