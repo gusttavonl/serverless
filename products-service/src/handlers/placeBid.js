@@ -18,7 +18,7 @@ async function placeBid(event, context) {
   }
 
   const params = {
-    TableName: proccess.env.PRODUCTS_TABLE_NAME,
+    TableName: process.env.PRODUCTS_TABLE_NAME,
     key: { id },
     UpdateExpession: 'set bid.amount = :amount',
     ExpressionAttributesValues: {

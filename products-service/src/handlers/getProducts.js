@@ -8,7 +8,7 @@ async function getProducts(event, context) {
   let products
   try {
     const result = await dynamoDb.scan({
-      TableName: proccess.env.PRODUCTS_TABLE_NAME,
+      TableName: process.env.PRODUCTS_TABLE_NAME,
     }).promise()
   
     products = result.Items

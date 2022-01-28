@@ -22,7 +22,7 @@ async function createProduct(event, context) {
 
   try {
     await dynamoDb.put({
-      TableName: proccess.env.PRODUCTS_TABLE_NAME,
+      TableName: process.env.PRODUCTS_TABLE_NAME,
       Item: product
     }).promise()
   

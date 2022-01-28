@@ -8,7 +8,7 @@ export async function getProductById(id) {
   let product
   try {
     const result = await dynamoDb.get({
-      TableName: proccess.env.PRODUCTS_TABLE_NAME,
+      TableName: process.env.PRODUCTS_TABLE_NAME,
       key: { id }
     }).promise()
   
