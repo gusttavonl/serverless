@@ -8,6 +8,8 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient()
 async function createProduct(event, context) {
   const { title, qtd, status } = event.body;
   const now = new Date()
+  const endDate = new Date()
+  endDate.setHours(now.getHours() + 1)
 
   const product = {
     id: uuid(),
@@ -15,6 +17,7 @@ async function createProduct(event, context) {
     qtd,
     status,
     createdAt: now.toISOString(),
+    endingAt: endDate,
     bid: {
       amount: 0
     }
