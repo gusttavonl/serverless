@@ -44,6 +44,12 @@ functions:
       - http:
           method: PATCH
           path: /product/{id}/bid
+
+  processProducts:
+    handler: src/handlers/processProducts.handler
+    events:
+      - schedule: rate(1 minute)
+
 resources:
   Resources:
     ProductsTable: ${file(resources/ProductsTable.yml):ProductsTable}
