@@ -11,7 +11,7 @@ npm install -g serverless
 # How Create Project Serverless
 
 ```
-sls create --name YOUR_PROJECT_NAME --template-url https://github.com/GustavoNoronha0/serverlessbase`
+sls create --name YOUR_PROJECT_NAME --template-url https://github.com/GustavoNoronha0/serverlessbase
 
 cd YOUR_PROJECT_NAME`
 
@@ -22,4 +22,16 @@ npm install
 
 ```
 sls deploy -v
+```
+
+# How view process events
+
+```
+sls logs -f processName
+```
+
+#### With time between logs
+
+```
+sls logs -f processName --startTime 1m
 ```
