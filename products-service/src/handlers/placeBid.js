@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk'
-import commonMiddleware from '../../lib/commonMiddleware'
+import commonMiddleware from '../lib/commonMiddleware'
 import createError from 'http-errors'
 import { getProductById } from './getProduct'
 
