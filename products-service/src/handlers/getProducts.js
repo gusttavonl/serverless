@@ -6,11 +6,20 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient()
 
 async function getProducts(event, context) {
   let products
+  const { status } = event.queryStringParameters
   try {
-    const result = await dynamoDb.scan({
+    const params = {
       TableName: process.env.PRODUCTS_TABLE_NAME,
-    }).promise()
-  
+      IndexName: 'statusAndEndDate',
+      KeyConditionExpression: '#status = :status',
+      ExpressionAttributeValues: {
+        ':status': status,
+      },
+      ExpressionAttributeNames: {
+        '#status': 'status',
+      },
+    };
+    const result = await dynamoDb.query(params).promise();
     products = result.Items
   } catch (error) {
     console.log(error)
