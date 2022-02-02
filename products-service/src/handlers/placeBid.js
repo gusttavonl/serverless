@@ -13,6 +13,10 @@ async function placeBid(event, context) {
 
   const product = await getProductById(id)
 
+  if(product.status !== 'OPEN') {
+    throw new createError.Forbidden(`You cannot change the bid of closed products!`)
+  }
+
   if(amount === product.bid.amount) {
     throw new createError.Forbidden(`Your bid must be different than ${product.bid.amount}!`)
   }
