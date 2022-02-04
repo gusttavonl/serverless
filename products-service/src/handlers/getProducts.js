@@ -1,5 +1,7 @@
 import AWS from 'aws-sdk'
 import commonMiddleware from '../lib/commonMiddleware'
+import validator from '@middy/validator'
+import schema from '../lib/schemas/getProductsSchema'
 import createError from 'http-errors'
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient()
@@ -32,6 +34,6 @@ async function getProducts(event, context) {
   };
 }
 
-export const handler = commonMiddleware(getProducts)
+export const handler = commonMiddleware(getProducts).use(validator({ inputSchema: schema, useDefaults: true }))
 
 
