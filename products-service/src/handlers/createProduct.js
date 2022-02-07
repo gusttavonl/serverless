@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import AWS from 'aws-sdk'
 import commonMiddleware from '../lib/commonMiddleware'
+import schema from '../lib/schemas/createProductSchema'
 import createError from 'http-errors'
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient()
@@ -40,6 +41,6 @@ async function createProduct(event, context) {
   };
 }
 
-export const handler = commonMiddleware(createProduct)
+export const handler = commonMiddleware(createProduct).use(validator({ inputSchema: schema }))
 
 
