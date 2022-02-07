@@ -1,5 +1,6 @@
 import AWS from 'aws-sdk'
 import commonMiddleware from '../lib/commonMiddleware'
+import schema from '../lib/schemas/placeBidSchema'
 import createError from 'http-errors'
 import { getProductById } from './getProduct'
 
@@ -45,6 +46,6 @@ async function placeBid(event, context) {
   };
 }
 
-export const handler = commonMiddleware(placeBid)
+export const handler = commonMiddleware(placeBid).use(validator({ inputSchema: schema }))
 
 
