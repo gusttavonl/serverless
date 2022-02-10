@@ -38,7 +38,7 @@ sls logs -f processName --startTime 1m
 
 ## Getting started Auth
 
-### 1. Clone the repository (or generate a serverless project)
+### Clone the repository (or generate a serverless project)
 
 ```sh
 sls create --name auth-service --template-url https://github.com/GustavoNoronha0/serverless-auth
@@ -57,7 +57,7 @@ npm install
 sls deploy -v
 ```
 
-### 5. Final test
+### Final test
 
 To make sure everything works, send a POST request (using curl, Postman etc.) to your private endpoint.
 
