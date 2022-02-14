@@ -11,6 +11,7 @@ async function placeBid(event, context) {
   
   const { id } = event.pathParameters
   const { amount } = event.body
+  const { email } = event.requestContext.authorizer
 
   const product = await getProductById(id)
 
@@ -25,9 +26,10 @@ async function placeBid(event, context) {
   const params = {
     TableName: process.env.PRODUCTS_TABLE_NAME,
     Key: { id },
-    UpdateExpression: 'set bid.amount = :amount',
+    UpdateExpression: 'set bid.amount = :amount, bid.creator = :creator',
     ExpressionAttributeValues: {
-      ':amount': amount
+      ':amount': amount,
+      ':creator': email
     },
     ReturnValues: 'ALL_NEW'
   }
