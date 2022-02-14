@@ -8,6 +8,7 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient()
 
 async function createProduct(event, context) {
   const { title, qtd, status } = event.body;
+  const { email } = event.requestContext.authorizer
   const now = new Date()
   const endDate = new Date()
   endDate.setHours(now.getHours() + 1)
@@ -21,7 +22,8 @@ async function createProduct(event, context) {
     endingAt: endDate,
     bid: {
       amount: 0
-    }
+    },
+    creator: email
   }
 
   try {
