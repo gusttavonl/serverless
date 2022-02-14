@@ -23,6 +23,7 @@ functions:
       - http:
           method: POST
           path: /product
+          authorizer: ${self:custom.authorizer}
 
   getProducts:
     handler: src/handlers/getProducts.handler
@@ -30,6 +31,7 @@ functions:
       - http:
           method: GET
           path: /products
+          authorizer: ${self:custom.authorizer}
 
   getProduct:
     handler: src/handlers/getProduct.handler
@@ -37,6 +39,7 @@ functions:
       - http:
           method: GET
           path: /product/{id}
+          authorizer: ${self:custom.authorizer}
 
   placeBid:
     handler: src/handlers/placeBid.handler
@@ -44,6 +47,7 @@ functions:
       - http:
           method: PATCH
           path: /product/{id}/bid
+          authorizer: ${self:custom.authorizer}
 
   processProducts:
     handler: src/handlers/processProducts.handler
@@ -55,6 +59,7 @@ resources:
     ProductsTable: ${file(resources/ProductsTable.yml):ProductsTable}
 
 custom:
+  authorizer: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:auth-service-${self:provider.stage}-auth
   ProductsTable:
     name: !Ref ProductsTable
     arn: !GetAtt ProductsTable.Arn
