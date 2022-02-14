@@ -23,6 +23,7 @@ functions:
       - http:
           method: POST
           path: /product
+          cors: true
           authorizer: ${self:custom.authorizer}
 
   getProducts:
@@ -31,6 +32,7 @@ functions:
       - http:
           method: GET
           path: /products
+          cors: true
           authorizer: ${self:custom.authorizer}
 
   getProduct:
@@ -39,6 +41,7 @@ functions:
       - http:
           method: GET
           path: /product/{id}
+          cors: true
           authorizer: ${self:custom.authorizer}
 
   placeBid:
@@ -47,6 +50,7 @@ functions:
       - http:
           method: PATCH
           path: /product/{id}/bid
+          cors: true
           authorizer: ${self:custom.authorizer}
 
   processProducts:
