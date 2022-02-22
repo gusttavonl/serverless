@@ -17,6 +17,9 @@ provider:
 resources:
   Resources:
     MailQueue: ${file(resources/MailQueue.yml):MailQueue}
+  Outputs:
+    MailQueueArn: ${file(resources/MailQueue.yml):Outputs.MailQueueArn}
+    MailQueueUrl: ${file(resources/MailQueue.yml):Outputs.MailQueueUrl}
 
 functions:
   sendMail:
@@ -30,3 +33,4 @@ custom:
   mailQueue:
     name: MailQueue-${self:provider.stage}
     arn: !GetAtt MailQueue.Arn
+    url: !Ref MailQueue
