@@ -1,0 +1,22 @@
+ProductsBucket:
+  Type: AWS::S3::Bucket
+  Properties:
+    BucketName: ${self:custom.ProductsBucket.name}
+    LifecycleConfiguration:
+      Rules:
+        - Id: ExpirePictures
+          Status: Enabled
+          ExpirationInDays: 1
+
+ProductsBucketPolicy:
+  Type: AWS::S3::BucketPolicy
+  Properties:
+    Bucket: !Ref ProductsBucket
+    PolicyDocument:
+      Statement:
+        - Sid: PublicRead
+          Effect: Allow
+          Principal: "*"
+          Action:
+            - s3:GetObject
+          Resource: arn:aws:s3:::${self:custom.ProductsBucket.name}/*
