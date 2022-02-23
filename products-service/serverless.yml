@@ -1,5 +1,5 @@
 service:
-  name: products-service
+  name: product-service
 
 plugins:
   - serverless-bundle
@@ -13,8 +13,18 @@ provider:
   region: sa-east-1
   environment:
     PRODUCTS_TABLE_NAME: ${self:custom.ProductsTable.name}
+    MAIL_QUEUE_URL: ${self:custom.MailQueue.url}
+    PRODUCTS_BUCKET_NAME: ${self:custom.ProductsBucket.name}
   iamRoleStatements:
     - ${file(iam/ProductsTableIAM.yml):ProductsTableIAM}
+    - ${file(iam/MailQueueIAM.yml):MailQueueIAM}
+    - ${file(iam/ProductsBucketIAM.yml):ProductsBucketIAM}
+
+resources:
+  Resources:
+    ProductsTable: ${file(resources/ProductsTable.yml):ProductsTable}
+    ProductsBucket: ${file(resources/ProductsBucket.yml):ProductsBucket}
+    ProductsBucketPolicy: ${file(resources/ProductsBucket.yml):ProductsBucketPolicy}
 
 functions:
   createProduct:
@@ -53,19 +63,27 @@ functions:
           cors: true
           authorizer: ${self:custom.authorizer}
 
+  uploadProductPicture:
+    handler: src/handlers/uploadProductPicture.handler
+    events:
+      - http:
+          method: PATCH
+          path: product/{id}/picture
+          cors: true
+          authorizer: ${self:custom.authorizer}
+
   processProducts:
     handler: src/handlers/processProducts.handler
     events:
       - schedule: rate(1 minute)
-
-resources:
-  Resources:
-    ProductsTable: ${file(resources/ProductsTable.yml):ProductsTable}
 
 custom:
   authorizer: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:auth-service-${self:provider.stage}-auth
   ProductsTable:
     name: !Ref ProductsTable
     arn: !GetAtt ProductsTable.Arn
-  bundle:
-    linting: false
+  MailQueue:
+    arn: ${cf:notification-service-${self:provider.stage}.MailQueueArn}
+    url: ${cf:notification-service-${self:provider.stage}.MailQueueUrl}
+  ProductsBucket:
+    name: products-bucket-sj19asxm-${self:provider.stage}
